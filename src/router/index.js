@@ -15,9 +15,13 @@ const routes = [
     component: Register,
   },
   {
+    // path: '/menu:userid', //파라미터 넘길시에 /menu:paramKey1/:paramKey2
     path: '/menu',
     name: 'mainmenu',
     component: MainMenu,
+    meta: {
+      roles: ['LEVEL_2'], // 접근권한
+    },
   },
   {
     path: '/end',

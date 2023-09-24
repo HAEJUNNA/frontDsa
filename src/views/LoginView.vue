@@ -28,6 +28,7 @@
   </div>
 </template>
 <script>
+// import router from '@/router';
 import axios from 'axios';
 export default {
   data() {
@@ -37,8 +38,9 @@ export default {
     };
   },
   watch: {
+    // 실시간으로 바인딩 시킨 데이터 체크
     userId: function () {
-      this.checkUserId();
+      this.checkUserId(); // 실시간으로 입력되는 데이터의 이벤트 바인딩
     },
     userPass: function () {
       this.checkPass();
@@ -75,11 +77,32 @@ export default {
         })
         .then((r) => {
           const result = r.data.data;
-          const flag = result.userFlag;
+          const flag = result.userFlag; // user 상태
+          const userRole = result.userRigth; // 권한 상태
           console.log(result);
           switch (flag) {
             case 'Y':
               this.$router.push('/menu');
+              // //유저id 파라미터 전달
+              // this.$router.push({
+              //   name: 'mainmenu',
+              //   params: {
+              //     userid: this.userId,
+              //   },
+              // });
+              // to => 내가 가야할곳
+              // from => 현재 페이지
+              // next => 이동시켜주는 객체
+              this.$router.beforeEach((to, from, next) => {
+                if (!to.meta.roles.includes(userRole.userRight)) {
+                  alert('해당 페이지에 접근 권한이 없습니다.');
+                  return;
+                } else {
+                  console.log(to);
+                  console.log(from);
+                  next(to);
+                }
+              });
               break;
             case 'N':
               alert(result.msg);

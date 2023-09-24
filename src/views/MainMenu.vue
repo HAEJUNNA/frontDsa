@@ -19,7 +19,35 @@
     </div>
   </body>
 </template>
-
+<script>
+// import axios from 'axios';
+export default {
+  data() {
+    return {
+      // userid: this.$route.params.userid,
+    };
+  },
+  //   // 화면 로드 되고나서 실행
+  // mounted() {
+  //   // this.userRightCheck();
+  // },
+  // methods: {
+  //   userRightCheck: function () {
+  //     axios
+  //       .post('/main/usrCheck', {
+  //         userId: this.userid,
+  //       })
+  //       .then((r) => {
+  //         const result = r.data;
+  //         console.log(result.userRight);
+  //       })
+  //       .catch((e) => {
+  //         throw new Error(e);
+  //       });
+  //   },
+  // },
+};
+</script>
 <style>
 * {
   margin: 0;
