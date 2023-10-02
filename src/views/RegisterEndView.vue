@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <h1 class="title" @click="moveMainPage">
-      Welcom DataSolution
+      Welcom CodeReview
       <div class="aurora">
         <div class="aurora__item"></div>
         <div class="aurora__item"></div>

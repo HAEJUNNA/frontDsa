@@ -20,32 +20,34 @@
   </body>
 </template>
 <script>
-// import axios from 'axios';
+import axios from 'axios';
 export default {
   data() {
     return {
-      // userid: this.$route.params.userid,
+      // 라우터로 전달받은 id값
+      userid: this.$route.params.userid,
     };
   },
-  //   // 화면 로드 되고나서 실행
-  // mounted() {
-  //   // this.userRightCheck();
-  // },
-  // methods: {
-  //   userRightCheck: function () {
-  //     axios
-  //       .post('/main/usrCheck', {
-  //         userId: this.userid,
-  //       })
-  //       .then((r) => {
-  //         const result = r.data;
-  //         console.log(result.userRight);
-  //       })
-  //       .catch((e) => {
-  //         throw new Error(e);
-  //       });
-  //   },
-  // },
+  // mounted는 화면이 로드되고 나서 실행
+  mounted() {
+    this.userRightCheck();
+  },
+  methods: {
+    userRightCheck: function () {
+      axios
+        .post('/main/usrCheck', {
+          userId: this.userid,
+        })
+        .then((r) => {
+          const result = r.data;
+          console.log(result);
+          console.log(result.userRight);
+        })
+        .catch((e) => {
+          throw new Error(e);
+        });
+    },
+  },
 };
 </script>
 <style>

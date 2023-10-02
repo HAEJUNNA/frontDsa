@@ -79,11 +79,13 @@ export default {
           const result = r.data.data;
           const flag = result.userFlag; // user 상태
           const userRole = result.userRigth; // 권한 상태
-          console.log(result);
           switch (flag) {
             case 'Y':
+              // 그냥 페이지 이동 방식
               this.$router.push('/menu');
-              // //유저id 파라미터 전달
+              // 파라미터 이동방식
+              // 파라미터 전달시 컴포넌트 경로는 name로 정의한다.
+              //유저id 파라미터 전달
               // this.$router.push({
               //   name: 'mainmenu',
               //   params: {
@@ -94,13 +96,18 @@ export default {
               // from => 현재 페이지
               // next => 이동시켜주는 객체
               this.$router.beforeEach((to, from, next) => {
-                if (!to.meta.roles.includes(userRole.userRight)) {
-                  alert('해당 페이지에 접근 권한이 없습니다.');
-                  return;
-                } else {
-                  console.log(to);
-                  console.log(from);
-                  next(to);
+                if (to.path === '/') {
+                  // 접근권한 없을시 무한루프를 빠져나오기 위함
+                  next();
+                } else if (to.path === '/menu') {
+                  if (!to.meta.roles.includes(userRole.userRight)) {
+                    alert('해당 페이지에 접근 권한이 없습니다.');
+                    return next({ path: '/' });
+                  } else {
+                    next();
+                  }
+                } else if (to.path === '/register') {
+                  next();
                 }
               });
               break;
